@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "374135987086",
+    "project_id": "studen-zone",
+    "storage_bucket": "studen-zone.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:374135987086:android:7ab1d394506b6d0831e2df",
+        "android_client_info": {
+          "package_name": "com.example.student_zone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAchxT_dvSSzWsi8TYY-CpYrQpmvKaeZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

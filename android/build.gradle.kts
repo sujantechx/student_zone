@@ -1,4 +1,6 @@
+
 allprojects {
+//    kotlin_version ='2.0.21'  // Update to latest stable version
     repositories {
         google()
         mavenCentral()
