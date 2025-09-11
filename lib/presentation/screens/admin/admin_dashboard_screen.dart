@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:student_zone/presentation/screens/admin/admin_subjects_page.dart';
 import '../../../core/routes/app_routes.dart';
 import '../../../logic/auth/auth_bloc.dart';
 
@@ -48,8 +49,9 @@ class AdminDashboardScreen extends StatelessWidget {
                       leading: const Icon(Icons.video_library_outlined),
                       title: const Text('Manage Course Content'),
                       subtitle: const Text('Add subjects, chapters, videos, and PDFs'),
-                      onTap: () {
-                        context.push(AppRoutes.manageContent);
+                      onTap: (){
+                        // context.pushNamed(AppRoutes.AdminSubjects);
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => AdminSubjectsPage(),));
                       },
                     ),
                   ),

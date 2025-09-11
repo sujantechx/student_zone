@@ -77,6 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
+       /// log out operation
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -214,7 +215,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   onPressed: () => setState(() => _isEditing = true),
                   child: const Text('Edit Profile'),
                 ),
-                Text(
+
+              ///device hestor
+              /*  Text(
                   'Device History',
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
@@ -250,7 +253,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       },
                     );
                   },
-                ),
+                ),*/
               ],
             ),
           );

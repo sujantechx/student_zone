@@ -6,8 +6,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class SubjectModel {
   final String id;
   final String title;
+  final String description;
 
-  SubjectModel({required this.id, required this.title});
+  SubjectModel({required this.id, required this.title,
+    required this.description
+  });
 
   // Factory to create a SubjectModel from a Firestore document snapshot.
   factory SubjectModel.fromSnapshot(DocumentSnapshot doc) {
@@ -15,7 +18,7 @@ class SubjectModel {
     return SubjectModel(
       id: doc.id,
       title: data['title'] ?? 'No Title',
-    );
+      description: data['description']??'');
   }
 }
 

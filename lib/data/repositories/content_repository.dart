@@ -105,6 +105,5 @@ class ContentRepository {
       return snapshot.docs.map((doc) => VideoModel.fromSnapshot(doc)).toList();
     });
   }
-
 }
 
