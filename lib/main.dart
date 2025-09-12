@@ -1,3 +1,4 @@
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,19 +21,32 @@ import 'logic/theme/theme_state.dart'; // Added import for ContentRepository req
 import 'data/repositories/pdf_repository.dart';
 
 // Main entry point for the Student Zone app
+// Main entry point for the Student Zone app
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
+    // ✅ CORRECTED THIS LINE
+    // Use the auto-generated DefaultFirebaseOptions for the current platform (Android/iOS).
     await Firebase.initializeApp(
-        options: kIsWeb? DefaultFirebaseOptions.web :null
+      options: DefaultFirebaseOptions.currentPlatform,
     );
+
     developer.log('Firebase initialized successfully');
+
+    // Pass all uncaught errors to Crashlytics
+    FlutterError.onError = (errorDetails) {
+      FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+    };
+    PlatformDispatcher.instance.onError = (error, stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+      return true;
+    };
 
     try {
       await FirebaseAppCheck.instance.activate(
-        androidProvider: const String.fromEnvironment('FLUTTER_ENV') == 'production'
-            ? AndroidProvider.playIntegrity
-            : AndroidProvider.debug,
+        androidProvider: kDebugMode
+            ? AndroidProvider.debug
+            : AndroidProvider.playIntegrity,
       );
       developer.log('Firebase App Check activated');
     } catch (e) {
@@ -44,6 +58,7 @@ void main() async {
     developer.log('Error initializing app: $e', error: e);
   }
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

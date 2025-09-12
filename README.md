@@ -14,3 +14,9 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+
+v 1.0.0
+all auth and student releted basic ui vido ply pdf vied,admin mange 
+v 1.0.1
+// add content mange admin
