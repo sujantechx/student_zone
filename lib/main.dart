@@ -115,3 +115,38 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+/// crash test
+/*
+
+class MyApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+   return MaterialApp(
+     home: MyTestPage(),
+   );
+
+  }
+}
+
+class MyTestPage extends StatelessWidget {
+  const MyTestPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Crashlytics Test'),
+      ),
+      body: Center(
+        child: TextButton(
+          onPressed: () {
+            // ✅ ADD THE CRASH COMMAND HERE
+            FirebaseCrashlytics.instance.crash();
+          },
+          child: const Text('Force a Test Crash'),
+        ),
+      ),
+    );
+  }
+}*/

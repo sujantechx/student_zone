@@ -20,3 +20,5 @@ v 1.0.0
 all auth and student releted basic ui vido ply pdf vied,admin mange 
 v 1.0.1
 // add content mange admin
+v 1.0.2
+// add crash analytic
