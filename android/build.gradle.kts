@@ -1,6 +1,7 @@
 
 allprojects {
-//    kotlin_version ='2.0.21'  // Update to latest stable version
+//    val kotlin_version by extra { "1.9.23" }
+    val kotlin_version by extra { "2.0.0" }
     repositories {
         google()
         mavenCentral()
