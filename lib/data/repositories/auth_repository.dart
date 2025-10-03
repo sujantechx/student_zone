@@ -28,43 +28,43 @@ class AuthRepository {
     required String email,
     required String password,
     required String name,
-    required String college, // ADDED
-    required String branch,  // ADDED
+    required String address,
+    required String courseId,
+    required String phone,
+    required String paymentId,
   }) async {
     try {
-      // Create the user in Firebase Authentication
-      final userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      // 1. Create the user in Firebase Authentication
+      final userCredential = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
       final user = userCredential.user!;
 
-      // Create a new UserModel instance with all the required data
+      // 2. Create a new UserModel instance with all the required data
       final newUser = UserModel(
         uid: user.uid,
         name: name,
         email: email,
-        college: college, // ADDED
-        branch: branch,   // ADDED
-        role: 'student',
+        address: address,
+        courseId: courseId,
+        phone: phone,
+        paymentId: paymentId,
+        role: 'student',   // Default role
         status: 'pending',
-        // createdAt and lastLogin will be handled by Firestore
+        courseTitle: '', // Default status
       );
 
-      // Save the complete user model to Firestore
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .set(newUser.toFirestore());
+      // 3. Save the complete user model to Firestore
+      await _firestore.collection('users').doc(user.uid).set(newUser.toFirestore());
 
-      // Return the newly created user model
+      // 4. Return the newly created user model
       return newUser;
     } catch (e) {
-      // Provide a more specific error message
+      developer.log('Registration error: $e', error: e);
       throw Exception('Registration failed: $e');
     }
   }
-
   Future<UserModel> getUser(String uid) async {
     try {
       final userDoc = await _firestore.collection('users').doc(uid).get();
@@ -85,7 +85,8 @@ class AuthRepository {
     required String deviceId,
     required String deviceName,
     required String deviceType,
-  }) async {
+  }) async
+  {
     try {
       developer.log('Logging in user: $email');
       final userCredential = await _auth.signInWithEmailAndPassword(
@@ -230,17 +231,17 @@ class AuthRepository {
   Future<void> updateUserProfile({
     required String uid,
     required String name,
-    // required String email, // REMOVED
-    required String college,
-    required String branch,
+    required String address,
+    required String courseTitle,
+    required String phone, required String courseName, required String courseId,
   }) async {
     try {
-      final updateData = UserModel(uid: uid, name: '', email: '', college: '', branch: '')
+      final updateData = const UserModel(uid: '', name: '', email: '', address: '', courseTitle: '',phone:'', paymentId: '', courseId: '')
           .toFirestoreUpdate(
         name: name,
-        // email: email, // REMOVED
-        college: college,
-        branch: branch,
+        address: address,
+        courseTitle: courseTitle,
+        phone: phone,
       );
       await _firestore.collection('users').doc(uid).update(updateData);
     } catch (e) {

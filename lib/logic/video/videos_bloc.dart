@@ -1,8 +1,8 @@
 // lib/logic/video/videos_bloc.dart
 
+import 'package:eduzon/logic/video/videos_event.dart';
+import 'package:eduzon/logic/video/videos_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:student_zone/logic/video/videos_event.dart';
-import 'package:student_zone/logic/video/videos_state.dart';
 import '../../data/repositories/admin_repository.dart';
 
 class VideosBloc extends Bloc<VideosEvent, VideosState> {
@@ -12,6 +12,7 @@ class VideosBloc extends Bloc<VideosEvent, VideosState> {
     on<LoadVideos>(_onLoadVideos);
     on<AddVideo>(_onAddVideo);
     on<UpdateVideo>(_onUpdateVideo);
+    on<DeleteVideo>(_onDeleteVideo);
   }
 
   void _onLoadVideos(LoadVideos event, Emitter<VideosState> emit) async {
@@ -21,6 +22,7 @@ class VideosBloc extends Bloc<VideosEvent, VideosState> {
         courseId: event.courseId,
         subjectId: event.subjectId,
         chapterId: event.chapterId,
+
       );
       emit(VideosLoaded(videos));
     } catch (e) {
@@ -37,6 +39,7 @@ class VideosBloc extends Bloc<VideosEvent, VideosState> {
         title: event.title,
         videoId: event.videoId,
         duration: event.duration,
+        videoNumber: event.videoNumber,
       );
       add(LoadVideos(courseId: event.courseId, subjectId: event.subjectId, chapterId: event.chapterId));
     } catch (e) {
@@ -51,11 +54,26 @@ class VideosBloc extends Bloc<VideosEvent, VideosState> {
         subjectId: event.subjectId,
         chapterId: event.chapterId,
         videoId: event.id,
+        videoNumber: event.newVideoNumber,
+        
         data: {
           'title': event.newTitle,
           'videoId': event.newVideoId,
           'duration': event.newDuration,
         },
+      );
+      add(LoadVideos(courseId: event.courseId, subjectId: event.subjectId, chapterId: event.chapterId));
+    } catch (e) {
+      emit(VideosError(e.toString()));
+    }
+  }
+  void _onDeleteVideo(DeleteVideo event, Emitter<VideosState> emit) async {
+    try {
+      await _adminRepository.deleteVideo(
+        courseId: event.courseId,
+        subjectId: event.subjectId,
+        chapterId: event.chapterId,
+        videoId: event.videoId,
       );
       add(LoadVideos(courseId: event.courseId, subjectId: event.subjectId, chapterId: event.chapterId));
     } catch (e) {

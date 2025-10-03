@@ -1,9 +1,9 @@
 // lib/presentation/screens/dashboard/pdf_viewer_screen.dart
 
+import 'package:eduzon/presentation/widgets/watermark_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:student_zone/presentation/widgets/watermark_widget.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../../data/models/pdf_model.dart';

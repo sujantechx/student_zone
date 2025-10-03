@@ -1,4 +1,5 @@
 // lib/presentation/pages/admin/admin_content_page.dart
+import 'package:eduzon/data/models/courses_moddel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/models/chapter_model.dart';
@@ -10,17 +11,19 @@ import '../../../logic/video/videos_bloc.dart';
 import '../../../logic/video/videos_event.dart';
 import 'admin_pdfs_list.dart';
 import 'admin_videos_list.dart';
+import 'manage_question.dart';
 
 
 class AdminContentPage extends StatelessWidget {
   final SubjectModel subject;
   final ChapterModel chapter;
-  final String courseId = 'ojee_2025_2026_batch';
+  final String courseId ;
 
   const AdminContentPage({
     super.key,
     required this.subject,
     required this.chapter,
+    required this.courseId,
   });
 
   @override
@@ -43,7 +46,7 @@ class AdminContentPage extends StatelessWidget {
         ),
       ],
       child: DefaultTabController(
-        length: 2,
+        length: 3,
         child: Scaffold(
           appBar: AppBar(
             title: Text(chapter.title),
@@ -51,6 +54,7 @@ class AdminContentPage extends StatelessWidget {
               tabs: [
                 Tab(icon: Icon(Icons.videocam), text: 'Videos'),
                 Tab(icon: Icon(Icons.picture_as_pdf), text: 'PDFs'),
+                Tab(icon: Icon(Icons.quiz),text: "Quiz",)
               ],
             ),
           ),
@@ -58,6 +62,8 @@ class AdminContentPage extends StatelessWidget {
             children: [
               AdminVideosList(courseId: courseId, subjectId: subject.id, chapterId: chapter.id),
               AdminPdfsList(courseId: courseId, subjectId: subject.id, chapterId: chapter.id),
+              ManageQuestion(courseId: courseId, subjectId: subject.id, chapterId: chapter.id),
+
             ],
           ),
         ),
