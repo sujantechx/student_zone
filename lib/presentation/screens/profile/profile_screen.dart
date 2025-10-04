@@ -78,14 +78,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         title: const Text('Profile'),
        /// log out operation
-/*
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () => context.read<AuthCubit>().signOut(),
           ),
         ],
-*/
       ),
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
