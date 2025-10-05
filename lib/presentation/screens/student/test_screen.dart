@@ -31,10 +31,10 @@ class TestScreen extends StatelessWidget {
       subjectId: subjectId,
       chapterId: chapter.id,
     );
-
+    final chapterT = chapter.title;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Quiz'),
+        title: Text('Test $chapterT'),
       ),
       body: BlocBuilder<QuizCubit, QuizState>(
         builder: (context, state) {

@@ -48,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 CircleAvatar(
                   radius: 100,
                   backgroundImage:AssetImage("assets/icons/student_zone_logo.jpg"),),
-
+/*
                 Text(
                   'Student Zone',
                   style: TextStyle(
@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
                   ),
-                ),
+                ),*/
               ],
             ),
           ),
