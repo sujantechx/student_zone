@@ -393,12 +393,13 @@ class _ManageQuestionState extends State<ManageQuestion> {
 
                         const SizedBox(height: 16),
                         ...List.generate(4, (index) {
+                          final label = String.fromCharCode(65 + index); // 🅰️ B C D
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 16.0),
                             child: TextFormField(
                               controller: optionsControllers[index],
                               decoration: InputDecoration(
-                                  labelText: 'Option ${index + 1}',
+                                  labelText: 'Option $label',
                                   border: const OutlineInputBorder()),
                               validator: (v) =>
                               v!.trim().isEmpty
