@@ -1,6 +1,5 @@
-// lib/presentation/screens/student/subjects_list_screen.dart
+// lib/presentation/screens/student/subjects_list_screen_modern.dart
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -15,20 +14,29 @@ class SubjectPdf extends StatelessWidget {
   const SubjectPdf({super.key});
 
   @override
-  @override
   Widget build(BuildContext context) {
+    // Getting the authenticated user state
     final authState = context.watch<AuthCubit>().state;
 
+    // A simple guard clause is cleaner than nesting the whole UI
     if (authState is! Authenticated) {
-      return const Center(child: CircularProgressIndicator()); // Handle loading/unauthenticated states
+      return const Scaffold(
+        body: Center(child: Text("User not authenticated.")),
+      );
     }
 
     final user = authState.userModel;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Subjects PDF')),
+      // A cleaner AppBar style
+      appBar: AppBar(
+        title: const Text('Subjects PDF', style: TextStyle(fontWeight: FontWeight.bold)),
+        // centerTitle: true,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        elevation: 0,
+        foregroundColor: Theme.of(context).textTheme.bodyLarge?.color,
+      ),
       body: FutureBuilder<List<SubjectModel>>(
-        // Listen to the stream of subjects from the repository.
         future: context.read<AdminRepository>().getSubjects(courseId: user.courseId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -38,72 +46,126 @@ class SubjectPdf extends StatelessWidget {
             return Center(child: Text('Error: ${snapshot.error}'));
           }
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('No subjects available for this course.'));
+            return const Center(child: Text('No subjects available for your course.'));
           }
+
+          // Sorting logic remains the same, it's perfect.
           final sortedSubjects = List<SubjectModel>.from(snapshot.data!)
             ..sort((a, b) {
-              // If both have a number, sort numerically
               if (a.subjectNumber != null && b.subjectNumber != null) {
                 return a.subjectNumber!.compareTo(b.subjectNumber!);
-              }
-              // If 'a' has a number and 'b' doesn't, 'a' comes first
-              else if (a.subjectNumber != null && b.subjectNumber == null) {
+              } else if (a.subjectNumber != null) {
                 return -1;
-              }
-              // If 'b' has a number and 'a' doesn't, 'b' comes first
-              else if (a.subjectNumber == null && b.subjectNumber != null) {
+              } else if (b.subjectNumber != null) {
                 return 1;
-              }
-              // If neither has a number, sort by title as a fallback
-              else {
+              } else {
                 return a.title.compareTo(b.title);
               }
             });
 
-          final subjects = snapshot.data!;
-          return ListView.builder(
+          // Using GridView for a more modern layout
+          return GridView.builder(
+            padding: const EdgeInsets.all(16.0),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,          // 2 cards per row
+              crossAxisSpacing: 16,       // Horizontal spacing
+              mainAxisSpacing: 16,        // Vertical spacing
+              childAspectRatio: 0.85,     // Adjust aspect ratio (width/height) for best look
+            ),
             itemCount: sortedSubjects.length,
             itemBuilder: (context, index) {
               final subject = sortedSubjects[index];
-              return Card(
-                margin: const EdgeInsets.all(8.0),
-                child: ListTile(
-                  leading: Container(
-                    width: 60,
-                    child: Row(
-                      children: [
-                        Text(
-                          subject.subjectNumber != null ? '${subject.subjectNumber}.' : '0',
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        const Icon(Icons.topic, color: Colors.blue),
-                      ],
-                    ),
-                  ),
-                  title: Text(subject.title, style: const TextStyle(fontWeight: FontWeight.bold)),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    // Get the user from the AuthCubit
-                    final authState = context.read<AuthCubit>().state;
-                    if (authState is Authenticated) {
-                      final user = authState.userModel;
-                      final courseId = user.courseId;
-
-                      // ✅ CORRECTED: Pass the subject and courseId inside a Map
-                      context.push(
-                        AppRoutes.chapterPDF,
-                        extra: {
-                          'subject': subject,
-                          'courseId': courseId,
-                        },
-                      );
-                    }
-                  },
-                ),
+              return _SubjectGridItem(
+                subject: subject,
+                onTap: () {
+                  final courseId = user.courseId;
+                  context.push(
+                    AppRoutes.chapterPDF,
+                    extra: {
+                      'subject': subject,
+                      'courseId': courseId,
+                    },
+                  );
+                },
               );
             },
           );
         },
       ),
     );
-  }}
+  }
+}
+
+/// A custom widget for displaying a single subject in the grid.
+/// This makes the UI code cleaner and reusable.
+class _SubjectGridItem extends StatelessWidget {
+  const _SubjectGridItem({
+    required this.subject,
+    required this.onTap,
+  });
+
+  final SubjectModel subject;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Card(
+      clipBehavior: Clip.antiAlias, // Ensures content respects the card's rounded corners
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      elevation: 2,
+      shadowColor: Colors.black.withOpacity(0.1),
+      child: InkWell(
+        onTap: onTap,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Top section with gradient and icon
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Colors.blue.shade300, Colors.blue.shade500],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.menu_book_rounded,
+                  color: Colors.white,
+                  size: 48,
+                ),
+              ),
+            ),
+            // Bottom section with text
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Subject ${subject.subjectNumber ?? ''}'.trim(),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: Colors.grey.shade600,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    subject.title,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

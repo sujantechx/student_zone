@@ -1,7 +1,3 @@
-// lib/presentation/screens/student/videos_list_screen.dart
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -27,20 +23,21 @@ class VideosListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // You're correctly handling the authState here, which is great.
     final authState = context.watch<AuthCubit>().state;
     if (authState is! Authenticated) {
       return const Center(child: CircularProgressIndicator());
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text(chapter.title)),
+      appBar: AppBar(
+        title: Text(chapter.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        elevation: 0,
+      ),
       body: FutureBuilder<List<VideoModel>>(
-        // ✅ CORRECTED: Use the courseId parameter from the constructor.
         future: context.read<AdminRepository>().getVideos(
           subjectId: subject.id,
           chapterId: chapter.id,
-          courseId: courseId, // <-- This is the fix
+          courseId: courseId,
         ),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -51,55 +48,119 @@ class VideosListScreen extends StatelessWidget {
           }
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(
-              child: Text('No videos found for this chapter.'),
+              child: Text('No videos found for this chapter.', style: TextStyle(fontSize: 16)),
             );
           }
+
           final sortedVideos = List<VideoModel>.from(snapshot.data!)
             ..sort((a, b) {
-              // If both have a number, sort numerically
               if (a.videoNumber != null && b.videoNumber != null) {
                 return a.videoNumber!.compareTo(b.videoNumber!);
-              }
-              // If 'a' has a number and 'b' doesn't, 'a' comes first
-              else if (a.videoNumber != null && b.videoNumber == null) {
+              } else if (a.videoNumber != null && b.videoNumber == null) {
                 return -1;
-              }
-              // If 'b' has a number and 'a' doesn't, 'b' comes first
-              else if (a.videoNumber == null && b.videoNumber != null) {
+              } else if (a.videoNumber == null && b.videoNumber != null) {
                 return 1;
-              }
-              // If neither has a number, sort by title as a fallback
-              else {
+              } else {
                 return a.title.compareTo(b.title);
               }
             });
 
-          final videos = snapshot.data!;
-          return ListView.builder(
-            itemCount: sortedVideos.length,
-            itemBuilder: (context, index) {
-              final video = sortedVideos[index];
-              return Card(
-                margin: const EdgeInsets.all(8.0),
-                child: ListTile(
-                  leading: Container(
-                    width: 60,
-                    child: Row(
-                      children: [
-                        Text(video.videoNumber != null ? '${video.videoNumber}.' : '0'),
-                        const Icon(Icons.play_circle_fill_rounded, color: Colors.red),
-                      ],
-                    ),
-                  ),                  title: Text(video.title, style: const TextStyle(fontWeight: FontWeight.bold)),
-                  subtitle: Text('Duration: ${video.duration}'),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                  onTap: () {
-                    // Navigate to the video player with the YouTube videoId.
-                    context.push('${AppRoutes.videoPlayer}/${video.videoId}');
-                  },
-                ),
+          return RefreshIndicator(
+            onRefresh: () async {
+              context.read<AdminRepository>().getVideos(
+                subjectId: subject.id,
+                chapterId: chapter.id,
+                courseId: courseId,
               );
             },
+            child: GridView.builder(
+              padding: const EdgeInsets.all(12),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 12,
+                childAspectRatio: 1.1,
+              ),
+              itemCount: sortedVideos.length,
+              itemBuilder: (context, index) {
+                final video = sortedVideos[index];
+                return GestureDetector(
+                  onTap: () => context.push('${AppRoutes.videoPlayer}/${video.videoId}'),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          blurRadius: 8,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                            child: Stack(
+                              children: [
+                                Container(
+                                  color: Colors.black12,
+                                  child: const Center(
+                                    child: Icon(Icons.play_circle_fill_rounded, size: 48, color: Colors.red),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: 8,
+                                  left: 8,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(0.6),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Text(
+                                      video.videoNumber != null ? '#${video.videoNumber}' : '',
+                                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                video.title,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                '⏱ Duration: ${video.duration}',
+                                style: TextStyle(color: Colors.grey[700], fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
           );
         },
       ),

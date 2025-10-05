@@ -64,7 +64,7 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^31.1.17 # Check pub.dev for the latest version
   flutter_launcher_icons: "^0.13.1"
   firebase_crashlytics: ^5.0.1
-
+  animate_do: ^4.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
