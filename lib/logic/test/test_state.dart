@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import '../../data/models/question_model.dart';
 import '../../data/models/result_model.dart';
 
+
 // States
 abstract class QuizState extends Equatable {
   const QuizState();

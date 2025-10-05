@@ -1,8 +1,9 @@
 // lib/presentation/screens/public/public_courses_screen.dart
-import 'package:eduzon/presentation/screens/Courses/public_course_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:student_zone/presentation/screens/Courses/public_course_grid_item.dart';
+
 import '../../../core/routes/app_routes.dart';
 import '../../../data/models/courses_moddel.dart';
 import '../../../data/repositories/admin_repository.dart';

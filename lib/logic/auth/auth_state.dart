@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import '../../data/models/user_model.dart';
 
 abstract class AuthState extends Equatable {

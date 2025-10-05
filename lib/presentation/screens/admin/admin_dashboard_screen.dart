@@ -1,10 +1,11 @@
-import 'package:eduzon/presentation/screens/Courses/manage_courses_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../core/routes/app_routes.dart';
 import '../../../logic/auth/auth_bloc.dart';
-import 'admin_subjects_page.dart';
+import '../Courses/manage_courses_screen.dart';
+
 
 class AdminDashboardScreen extends StatelessWidget {
   const AdminDashboardScreen({super.key});

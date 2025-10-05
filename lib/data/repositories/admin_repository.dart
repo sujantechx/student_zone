@@ -1,14 +1,16 @@
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eduzon/data/models/question_model.dart';
-import 'package:eduzon/data/models/video_model.dart';
-import 'package:eduzon/data/models/subject_model.dart';
-import 'package:eduzon/data/models/chapter_model.dart';
-import 'package:eduzon/data/models/pdf_model.dart';
 import 'dart:developer' as developer;
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../models/chapter_model.dart';
 import '../models/courses_moddel.dart';
+import '../models/pdf_model.dart';
+import '../models/question_model.dart';
 import '../models/result_model.dart';
+import '../models/subject_model.dart';
+import '../models/video_model.dart';
+
 
 class AdminRepository {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

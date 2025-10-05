@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../data/models/video_model.dart';
 
+
 abstract class VideosState extends Equatable {
   const VideosState();
   @override

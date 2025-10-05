@@ -1,8 +1,10 @@
 // lib/logic/video/videos_bloc.dart
 
-import 'package:eduzon/logic/video/videos_event.dart';
-import 'package:eduzon/logic/video/videos_state.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:student_zone/logic/video/videos_event.dart';
+import 'package:student_zone/logic/video/videos_state.dart';
+
 import '../../data/repositories/admin_repository.dart';
 
 class VideosBloc extends Bloc<VideosEvent, VideosState> {

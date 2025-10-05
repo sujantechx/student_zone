@@ -1,13 +1,16 @@
-// lib/logic/test/quiz_cubit.dart
+
 
 import 'dart:async';
-import 'package:bloc/bloc.dart';
-import 'package:eduzon/data/models/question_model.dart';
-import 'package:eduzon/data/models/result_model.dart';
-import 'package:eduzon/data/repositories/admin_repository.dart';
-import 'package:eduzon/logic/auth/auth_bloc.dart';
-import 'package:eduzon/logic/auth/auth_state.dart';
-import 'package:eduzon/logic/test/test_state.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:student_zone/logic/test/test_state.dart';
+
+import '../../data/models/result_model.dart';
+import '../../data/repositories/admin_repository.dart';
+import '../auth/auth_bloc.dart';
+import '../auth/auth_state.dart';
+
+
 
 class QuizCubit extends Cubit<QuizState> {
   final AdminRepository _testRepository;

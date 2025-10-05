@@ -1,7 +1,7 @@
 // lib/logic/admin/courses/admin_courses_cubit.dart
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/repositories/admin_repository.dart';
+import '../../data/repositories/admin_repository.dart';
 import 'courses_state.dart';
 
 class CoursesCubit extends Cubit<CoursesState> {

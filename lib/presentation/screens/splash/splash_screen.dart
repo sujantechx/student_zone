@@ -47,10 +47,10 @@ class _SplashScreenState extends State<SplashScreen> {
                 SizedBox(height: 20),
                 CircleAvatar(
                   radius: 100,
-                  backgroundImage:AssetImage("assets/icons/Eduzon_logo.jpg"),),
+                  backgroundImage:AssetImage("assets/icons/student_zone_logo.jpg"),),
 
                 Text(
-                  'EDUZON',
+                  'Student Zone',
                   style: TextStyle(
                     color: Colors.blueAccent,
                     fontSize: 28,

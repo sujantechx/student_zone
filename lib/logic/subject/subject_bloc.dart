@@ -1,7 +1,9 @@
-import 'package:eduzon/logic/subject/subject_event.dart';
-import 'package:eduzon/logic/subject/subject_state.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../data/repositories/admin_repository.dart';
+import 'package:student_zone/logic/subject/subject_event.dart';
+import 'package:student_zone/logic/subject/subject_state.dart';
+
+import '../../data/repositories/admin_repository.dart';
 
 class SubjectsBloc extends Bloc<SubjectEvent, SubjectState> {
   final AdminRepository _adminRepository;

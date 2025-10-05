@@ -1,8 +1,10 @@
 // lib/presentation/screens/public/qr_payment_screen.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../core/routes/app_routes.dart';
 import '../../../data/models/courses_moddel.dart';
+
 
 /// A page that displays the QR code for payment.
 class QrPaymentScreen extends StatelessWidget {

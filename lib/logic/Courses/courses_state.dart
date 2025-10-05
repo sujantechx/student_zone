@@ -1,6 +1,7 @@
 // lib/logic/admin/courses/admin_courses_state.dart
 
 import 'package:equatable/equatable.dart';
+
 import '../../data/models/courses_moddel.dart';
 
 abstract class CoursesState extends Equatable {

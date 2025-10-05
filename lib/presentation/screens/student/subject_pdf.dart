@@ -1,13 +1,15 @@
 // lib/presentation/screens/student/subjects_list_screen.dart
-import 'package:eduzon/data/repositories/admin_repository.dart';
-import 'package:eduzon/logic/auth/auth_bloc.dart';
-import 'package:eduzon/logic/auth/auth_state.dart';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/routes/app_routes.dart';
 import '../../../data/models/subject_model.dart';
+import '../../../data/repositories/admin_repository.dart';
+import '../../../logic/auth/auth_bloc.dart';
+import '../../../logic/auth/auth_state.dart';
 
 class SubjectPdf extends StatelessWidget {
   const SubjectPdf({super.key});

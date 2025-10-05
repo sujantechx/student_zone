@@ -1,14 +1,15 @@
 // lib/presentation/screens/dashboard/video_player_screen.dart
 
-import 'package:eduzon/presentation/widgets/watermark_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:student_zone/presentation/widgets/watermark_widget.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../../core/enums/screen_mode.dart'; // Import the enum
+import '../../core/enums/screen_mode.dart';
 import '../../logic/auth/auth_bloc.dart';
 import '../../logic/auth/auth_state.dart';
-import '../../services/secure_service.dart';
+
+
 
 class VideoPlayerScreen extends StatefulWidget {
   final String videoId;

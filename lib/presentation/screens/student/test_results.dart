@@ -1,11 +1,14 @@
 // lib/presentation/screens/student/quiz_result_screen.dart
 
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:eduzon/data/models/result_model.dart';
-import 'package:eduzon/data/models/question_model.dart';
-import 'package:eduzon/logic/test/quiz_cubit.dart';
+
+import '../../../data/models/question_model.dart';
+import '../../../data/models/result_model.dart';
+import '../../../logic/test/quiz_cubit.dart';
 
 class QuizResultScreen extends StatelessWidget {
   final ResultModel result;

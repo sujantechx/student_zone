@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../data/models/subject_model.dart';
 
+
 abstract class SubjectState extends Equatable {
   const SubjectState();
 

@@ -1,17 +1,17 @@
 // lib/presentation/screens/admin/manage_courses_screen.dart
 
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eduzon/core/routes/app_routes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/routes/app_routes.dart';
 import '../../../data/models/courses_moddel.dart';
 import '../../../data/repositories/admin_repository.dart';
 import '../../../logic/Courses/courses_cubit.dart';
 import '../../../logic/Courses/courses_state.dart';
-import '../admin/admin_subjects_page.dart';
-
 
 /// A screen for admins to view, add, edit, and delete courses.
 class ManageCoursesScreen extends StatelessWidget {

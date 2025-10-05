@@ -1,9 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'dart:developer' as developer;
-import '../../data/models/user_model.dart';
 import '../../data/repositories/auth_repository.dart';
 import 'auth_state.dart';
 

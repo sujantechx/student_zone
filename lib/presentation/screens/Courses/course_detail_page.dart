@@ -1,6 +1,9 @@
 // lib/presentation/screens/public/course_detail_page.dart
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../core/routes/app_routes.dart';
 import '../../../data/models/courses_moddel.dart';
 

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'dart:developer' as developer;
+
 import '../../../core/routes/app_routes.dart';
 import '../../../logic/auth/auth_bloc.dart';
 import '../../../logic/auth/auth_state.dart';
-import 'dart:developer' as developer;
 
 
 class LoginScreen extends StatefulWidget {

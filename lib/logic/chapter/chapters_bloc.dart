@@ -1,8 +1,6 @@
 // lib/logic/chapter/chapters_bloc.dart
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
-import '../../data/models/chapter_model.dart';
 import '../../data/repositories/admin_repository.dart';
 import 'chapters_event.dart';
 import 'chapters_state.dart';

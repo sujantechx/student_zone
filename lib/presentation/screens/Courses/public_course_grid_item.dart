@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../data/models/courses_moddel.dart';
 
+
 /// A widget that displays a single course in a card format for the public course list.
 class PublicCourseGridItem extends StatelessWidget {
   final CoursesModel course;

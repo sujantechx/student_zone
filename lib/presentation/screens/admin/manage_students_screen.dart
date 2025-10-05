@@ -1,11 +1,14 @@
-import 'package:eduzon/data/models/user_model.dart';
-import 'package:eduzon/data/repositories/auth_repository.dart';
-import 'package:eduzon/logic/auth/admin_cubit.dart';
-import 'package:eduzon/logic/auth/admin_state.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:developer' as developer;
+
+import '../../../data/models/user_model.dart';
+import '../../../data/repositories/auth_repository.dart';
+import '../../../logic/auth/admin_cubit.dart';
+import '../../../logic/auth/admin_state.dart';
+
 
 class ManageStudentsScreen extends StatefulWidget {
   const ManageStudentsScreen({super.key});

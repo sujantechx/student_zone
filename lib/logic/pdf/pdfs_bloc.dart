@@ -1,8 +1,8 @@
 // lib/logic/pdf/pdfs_bloc.dart
-
-import 'package:eduzon/logic/pdf/pdfs_event.dart';
-import 'package:eduzon/logic/pdf/pdfs_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:student_zone/logic/pdf/pdfs_event.dart';
+import 'package:student_zone/logic/pdf/pdfs_state.dart';
+
 import '../../data/repositories/admin_repository.dart';
 
 class PdfsBloc extends Bloc<PdfsEvent, PdfsState> {
