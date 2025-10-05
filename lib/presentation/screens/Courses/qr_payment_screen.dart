@@ -19,45 +19,50 @@ class QrPaymentScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Complete Your Payment'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Instructions to the user
-            Text(
-              'Scan the QR Code to Pay ₹${course.price}',
-              style: Theme.of(context).textTheme.headlineSmall,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-
-            // Your QR Code Image
-            // Make sure you have 'payment_qr.png' in your 'assets/images/' folder.
-            Image.asset('assets/images/payment_qr.jpg'),
-            const SizedBox(height: 20),
-
-            // More detailed instructions
-            const Text(
-              'After paying, copy the Transaction ID. You will need to enter it on the next screen.',
-              textAlign: TextAlign.center,
-              style: TextStyle(height: 1.5, color: Colors.grey),
-            ),
-            const Spacer(),
-
-            // Button to proceed to registration
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to the register screen you already built.
-                // Pass the ID of the course they are paying for.
-                context.push(AppRoutes.register, extra: course.id);
-              },
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
+      // 1. Wrap the Padding with SingleChildScrollView to make it scrollable
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Instructions to the user
+              Text(
+                'Scan the QR Code to Pay ₹${course.price}',
+                style: Theme.of(context).textTheme.headlineSmall,
+                textAlign: TextAlign.center,
               ),
-              child: const Text('I Have Paid, Continue to Register'),
-            ),
-          ],
+              const SizedBox(height: 20),
+
+              // Your QR Code Image
+              // Make sure you have 'payment_qr.png' in your 'assets/images/' folder.
+              Image.asset('assets/images/payment_qr.png'),
+              const SizedBox(height: 20),
+
+              // More detailed instructions
+              const Text(
+                'After paying, copy the Transaction ID. You will need to enter it on the next screen.',
+                textAlign: TextAlign.center,
+                style: TextStyle(height: 1.5, color: Colors.grey),
+              ),
+
+              // 2. Removed the Spacer and added SizedBox for consistent spacing
+              const SizedBox(height: 40),
+
+              // Button to proceed to registration
+              ElevatedButton(
+                onPressed: () {
+                  // Navigate to the register screen you already built.
+                  // Pass the ID of the course they are paying for.
+                  context.push(AppRoutes.register, extra: course.id);
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                ),
+                child: const Text('I Have Paid, Continue to Register'),
+              ),
+            ],
+          ),
         ),
       ),
     );
