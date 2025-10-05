@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../data/models/chapter_model.dart';
 
+
 abstract class ChaptersState extends Equatable {
   const ChaptersState();
   @override

@@ -5,10 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:student_zone/presentation/widgets/watermark_widget.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-import '../../core/enums/screen_mode.dart'; // Import the enum
+import '../../core/enums/screen_mode.dart';
 import '../../logic/auth/auth_bloc.dart';
 import '../../logic/auth/auth_state.dart';
-import '../../services/secure_service.dart';
+
+
 
 class VideoPlayerScreen extends StatefulWidget {
   final String videoId;
@@ -38,6 +39,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         autoPlay: true,
         forceHD: true,
         showLiveFullscreenButton: false,
+        hideThumbnail: true
       ),
     );
     // Only secure the screen for students
@@ -90,11 +92,11 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               if (widget.mode == ScreenMode.student)
                 const Padding(
                   padding: EdgeInsets.all(16.0),
-                  child: Text(
-                    'For your security, screenshots and screen recording are disabled for this content.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey),
-                  ),
+                  // child: Text(
+                  //   'For your security, screenshots and screen recording are disabled for this content.',
+                  //   textAlign: TextAlign.center,
+                  //   style: TextStyle(color: Colors.grey),
+                  // ),
                 )
             ],
           );

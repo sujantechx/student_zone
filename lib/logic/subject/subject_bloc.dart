@@ -1,7 +1,9 @@
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:student_zone/logic/admin/subject_event.dart';
-import 'package:student_zone/logic/admin/subject_state.dart';
-import '../../../data/repositories/admin_repository.dart';
+import 'package:student_zone/logic/subject/subject_event.dart';
+import 'package:student_zone/logic/subject/subject_state.dart';
+
+import '../../data/repositories/admin_repository.dart';
 
 class SubjectsBloc extends Bloc<SubjectEvent, SubjectState> {
   final AdminRepository _adminRepository;
@@ -24,11 +26,13 @@ class SubjectsBloc extends Bloc<SubjectEvent, SubjectState> {
   }
 
   void _onAddSubject(AddSubject event, Emitter<SubjectState> emit) async {
+    emit(SubjectsLoading());
     try {
       await _adminRepository.addSubject(
         courseId: event.courseId,
         title: event.title,
         description: event.description,
+        subjectNumber: event.subjectNumber,
       );
       // After adding, reload the subjects to show the new one
       add(LoadSubjects(courseId: event.courseId));
@@ -38,10 +42,12 @@ class SubjectsBloc extends Bloc<SubjectEvent, SubjectState> {
   }
 
   void _onUpdateSubject(UpdateSubject event, Emitter<SubjectState> emit) async {
+    emit(SubjectsLoading());
     try {
       await _adminRepository.updateSubject(
         courseId: event.courseId,
         subjectId: event.subjectId,
+        subjectNumber: event.newSubjectNumber,
         data: {'title': event.newTitle, 'description': event.newDescription},
       );
       // After updating, reload the list

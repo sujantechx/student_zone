@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+
 import '../../data/models/user_model.dart';
 
 // ContentModel represents a subject or course in Firestore 'subjects' collection

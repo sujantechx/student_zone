@@ -1,4 +1,3 @@
-import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:developer' as developer;
@@ -69,7 +68,7 @@ class AdminCubit extends Cubit<AdminState> {
   }
 
   // Approve a user
-/*  Future<void> approveUser(String uid) async {
+  Future<void> approveUser(String uid) async {
     emit(AdminLoading());
     try {
       await FirebaseFirestore.instance.collection('users').doc(uid).update({
@@ -82,11 +81,11 @@ class AdminCubit extends Cubit<AdminState> {
       String? errorCode = e.toString().contains('PERMISSION_DENIED') ? 'PERMISSION_DENIED' : null;
       emit(AdminError('Failed to approve user: $e', errorCode: errorCode));
     }
-  }*/
-  Future<void> approveUser(String uid) async {
+  }
+ /* Future<void> approveUser(String uid) async {
     final callable = FirebaseFunctions.instance.httpsCallable('approveUser');
     await callable.call({'uid': uid});
-  }
+  }*/
 
   // Reject a user and clear active devices
   Future<void> rejectUser(String uid) async {

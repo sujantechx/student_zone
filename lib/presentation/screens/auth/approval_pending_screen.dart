@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../logic/auth/auth_bloc.dart';
 
+
 class PendingApprovalScreen extends StatelessWidget {
   const PendingApprovalScreen({super.key});
 

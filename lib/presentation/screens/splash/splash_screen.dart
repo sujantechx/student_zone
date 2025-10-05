@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (authState is Authenticated) {
         context.go('/home');
       } else {
-        context.go('/login');
+        context.go('/publicCourses');
       }
     });
   }
@@ -36,27 +36,32 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(height: 20),
-           CircleAvatar(
-             radius: 100,
-             backgroundImage:AssetImage("assets/icons/student_zone_logo.jpg"),),
+    // Wrap your existing content with a Builder
+    return Builder(
+      builder: (BuildContext innerContext) {
+        return const Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 20),
+                CircleAvatar(
+                  radius: 100,
+                  backgroundImage:AssetImage("assets/icons/student_zone_logo.jpg"),),
 
-            Text(
-              'STUDENT ZONE',
-              style: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
+                Text(
+                  'Student Zone',
+                  style: TextStyle(
+                    color: Colors.blueAccent,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

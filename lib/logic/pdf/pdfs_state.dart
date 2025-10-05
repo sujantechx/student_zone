@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../data/models/pdf_model.dart';
 
+
 abstract class PdfsState extends Equatable {
   const PdfsState();
   @override

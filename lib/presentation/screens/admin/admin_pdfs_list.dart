@@ -1,12 +1,13 @@
 // lib/presentation/pages/admin/admin_pdfs_list.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
-import 'package:student_zone/core/routes/app_routes.dart';
+
+import '../../../core/routes/app_routes.dart';
 import '../../../data/models/pdf_model.dart';
 import '../../../logic/pdf/pdfs_bloc.dart';
 import '../../../logic/pdf/pdfs_event.dart';
 import '../../../logic/pdf/pdfs_state.dart';
+
 
 class AdminPdfsList extends StatelessWidget {
   final String courseId;
@@ -40,16 +41,45 @@ class AdminPdfsList extends StatelessWidget {
             if (state.pdfs.isEmpty) {
               return const Center(child: Text('No PDFs found. Add one!'));
             }
+            final sortedPdfs = List<PdfModel>.from(state.pdfs)..sort((a, b) {
+              // If both have a number, sort numerically
+              if (a.pdfNumber != null && b.pdfNumber != null) {
+                return a.pdfNumber!.compareTo(b.pdfNumber!);
+              }
+              // If 'a' has a number and 'b' doesn't, 'a' comes first
+              else if (a.pdfNumber != null && b.pdfNumber == null) {
+                return -1;
+              }
+              // If 'b' has a number and 'a' doesn't, 'b' comes first
+              else if (a.pdfNumber == null && b.pdfNumber != null) {
+                return 1;
+              }
+              // If neither has a number, sort by title as a fallback
+              else {
+                return a.title.compareTo(b.title);
+              }
+            });
             return ListView.builder(
-              itemCount: state.pdfs.length,
+              itemCount: sortedPdfs.length,
               itemBuilder: (context, index) {
-                final pdf = state.pdfs[index];
+                final pdf = sortedPdfs[index];
                 return InkWell(
                   onTap: () {
                     // Navigate to the ADMIN PDF viewer route
                     Navigator.of(context).pushNamed(AppRoutes.adminPdfViewer, arguments: pdf.url);                  },
                   child: ListTile(
-                    leading: const Icon(Icons.description),
+                    leading: Container(
+                      width: 60,
+                      child: Row(
+                        children: [
+                          Text(
+                            pdf.pdfNumber != null ? '${pdf.pdfNumber}.' : '',
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const Icon(Icons.picture_as_pdf, color: Colors.red),
+                        ],
+                      ),
+                    ),
                     title: Text(pdf.title),
                     trailing: IconButton(
                       icon: const Icon(Icons.edit, color: Colors.blue),
@@ -76,6 +106,11 @@ class AdminPdfsList extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
     final titleController = TextEditingController(text: isEditing ? pdf.title : '');
     final urlController = TextEditingController(text: isEditing ? pdf.url : '');
+// The first line is correct, assuming 'isEditing' and 'pdf' are defined.
+    final pdfNumberController = TextEditingController(text: isEditing && pdf.pdfNumber != null ? pdf.pdfNumber.toString() : '');
+// Corrected and safer way to get the integer value.
+    final int? pdfNumber = int.tryParse(pdfNumberController.text);
+
     final pdfsBloc = context.read<PdfsBloc>();
 
     showDialog(
@@ -89,6 +124,20 @@ class AdminPdfsList extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  TextFormField(
+                    controller: pdfNumberController,
+                    decoration: const InputDecoration(labelText: 'PDF Number (optional)'),
+                    keyboardType: TextInputType.number,
+                    validator: (v) {
+                      if (v != null && v.trim().isNotEmpty) {
+                        final number = int.tryParse(v);
+                        if (number == null || number < 0) {
+                          return 'Enter a valid non-negative number';
+                        }
+                      }
+                      return null;
+                    },
+                  ),
                   TextFormField(
                     controller: titleController,
                     decoration: const InputDecoration(labelText: 'Title'),
@@ -111,6 +160,7 @@ class AdminPdfsList extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 if (formKey.currentState!.validate()) {
+                  final int pdfNumbers = int.tryParse(pdfNumberController.text) ?? (isEditing ? pdf!.pdfNumber ?? 0 : 0);
                   if (isEditing) {
                     pdfsBloc.add(UpdatePdf(
                       courseId: courseId,
@@ -119,6 +169,7 @@ class AdminPdfsList extends StatelessWidget {
                       id: pdf.id,
                       newTitle: titleController.text,
                       newUrl: urlController.text,
+                      newPdfNumber: pdfNumbers, // Keep the same number for existing PDFs
                     ));
                   } else {
                     pdfsBloc.add(AddPdf(
@@ -127,6 +178,7 @@ class AdminPdfsList extends StatelessWidget {
                       chapterId: chapterId,
                       title: titleController.text,
                       url: urlController.text,
+                      pdfNumber: pdfNumbers, // Default number for new PDFs
                     ));
                   }
                   Navigator.of(dialogContext).pop();

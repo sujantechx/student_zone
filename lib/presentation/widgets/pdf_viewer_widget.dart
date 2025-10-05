@@ -10,6 +10,8 @@ import '../../data/models/pdf_model.dart';
 import '../../logic/auth/auth_bloc.dart';
 import '../../logic/auth/auth_state.dart';
 
+
+
 class PdfViewerScreen extends StatefulWidget {
   final PdfModel pdfModel;
   const PdfViewerScreen({super.key, required this.pdfModel});
