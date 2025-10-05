@@ -29,7 +29,8 @@ class AuthRepository {
     required String email,
     required String password,
     required String name,
-    required String address,
+    required String college,
+    required String branch,
     required String courseId,
     required String phone,
     required String paymentId,
@@ -47,7 +48,8 @@ class AuthRepository {
         uid: user.uid,
         name: name,
         email: email,
-        address: address,
+        college: college,
+        branch: branch,
         courseId: courseId,
         phone: phone,
         paymentId: paymentId,
@@ -232,15 +234,18 @@ class AuthRepository {
   Future<void> updateUserProfile({
     required String uid,
     required String name,
-    required String address,
+    required String college,
+    required String branch,
     required String courseTitle,
+
     required String phone, required String courseName, required String courseId,
   }) async {
     try {
-      final updateData = const UserModel(uid: '', name: '', email: '', address: '', courseTitle: '',phone:'', paymentId: '', courseId: '')
+      final updateData = const UserModel(uid: '', name: '', email: '',  courseTitle: '',phone:'', paymentId: '', courseId: '', college: '', branch: '')
           .toFirestoreUpdate(
         name: name,
-        address: address,
+       college:college ,
+        branch: branch,
         courseTitle: courseTitle,
         phone: phone,
       );

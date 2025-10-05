@@ -7,7 +7,8 @@ class UserModel extends Equatable {
   final String uid;
   final String name;
   final String email;
-  final String address;
+  final String college;
+  final String branch;
   final String courseId;
   final String role;
   final String status;
@@ -24,7 +25,8 @@ class UserModel extends Equatable {
     required this.uid,
     required this.name,
     required this.email,
-    required this.address,
+    required this.college,
+    required this.branch,
     required this.courseId,
     required this.phone,
     required this.paymentId,
@@ -42,8 +44,9 @@ class UserModel extends Equatable {
       uid: doc.id,
       name: (data['name'] as String?)?.trim() ?? 'Unknown',
       email: (data['email'] as String?)?.trim().toLowerCase() ?? '',
-      address: (data['address'] as String?)?.trim() ?? 'Unknown',
       courseId: (data['courseId'] as String?)?.trim() ?? 'Unknown',
+      college: (data['college'] as String?)?.trim() ?? 'Unknown',
+      branch: (data['branch'] as String?)?.trim() ?? 'Unknown',
       role: (data['role'] as String?)?.toLowerCase() ?? 'student',
       status: (data['status'] as String?)?.toLowerCase() ?? 'pending',
       activeToken: data['activeToken'] as String?,
@@ -60,7 +63,8 @@ class UserModel extends Equatable {
       'uid': uid,
       'name': name.trim(),
       'email': email.trim().toLowerCase(),
-      'address': address.trim(),
+      'college': college.trim(),
+      'branch': branch.trim(),
       'courseId': courseId.trim(),
       'role': role.toLowerCase(),
       'status': status.toLowerCase(),
@@ -76,7 +80,8 @@ class UserModel extends Equatable {
   Map<String, dynamic> toFirestoreUpdate({
     String? name,
     String? email,
-    String? address, // CORRECTED
+    String?college, // CORRECTED
+    String?branch, // CORRECTED
     String? courseId,
     String? role,
     String? status,
@@ -91,7 +96,8 @@ class UserModel extends Equatable {
       if (!_isValidEmail(email)) throw ArgumentError('Invalid email format: $email');
       updates['email'] = email.trim().toLowerCase();
     }
-    if (address != null) updates['address'] = address.trim(); // CORRECTED
+    if (college != null) updates['college'] = college.trim(); // CORRECTED
+    if (branch != null) updates['branch'] = branch.trim(); // CORRECTED
     if (courseId != null) updates['courseId'] = courseId.trim(); // CORRECTED
     if (role != null) updates['role'] = role.toLowerCase();
     if (status != null) updates['status'] = status.toLowerCase();
@@ -109,7 +115,8 @@ class UserModel extends Equatable {
   UserModel copyWith({
     String? name,
     String? email,
-    String? address, // CORRECTED
+    String? college, // CORRECTED
+    String? branch, // CORRECTED
     String? courseId,
     String? role,
     String? status,
@@ -124,7 +131,8 @@ class UserModel extends Equatable {
       uid: uid,
       name: name?.trim() ?? this.name,
       email: email?.trim().toLowerCase() ?? this.email,
-      address: address?.trim() ?? this.address, // CORRECTED
+      college: college?.trim() ?? this.college, // CORRECTED
+      branch: branch?.trim() ?? this.branch, // CORRECTED
       courseId: courseId?.trim() ?? this.courseId,
       role: role?.toLowerCase() ?? this.role,
       status: status?.toLowerCase() ?? this.status,
@@ -139,7 +147,7 @@ class UserModel extends Equatable {
 
   @override
   List<Object?> get props => [
-    uid, name, email, address, courseId, role, status,
+    uid, name, email, college,branch, courseId, role, status,
     activeToken, createdAt, lastLogin, phone, paymentId, courseTitle
   ];
 }

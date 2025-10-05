@@ -22,9 +22,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   final _nameController = TextEditingController();
   // ✅ UPDATED: Controllers now match the UserModel
-  final _addressController = TextEditingController();
+  final _collageController = TextEditingController();
+  final _branchController = TextEditingController();
   final _phoneController = TextEditingController();
   final _paymentIdController = TextEditingController();
 
@@ -33,9 +35,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _emailController.dispose();
     _passwordController.dispose();
     _nameController.dispose();
-    _addressController.dispose();
     _phoneController.dispose();
     _paymentIdController.dispose();
+    _collageController.dispose();
+    _branchController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -45,7 +49,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         email: _emailController.text,
         password: _passwordController.text,
         name: _nameController.text,
-        address: _addressController.text,
+        college: _collageController.text,
+        branch: _branchController.text,
         phone: _phoneController.text,
         paymentId: _paymentIdController.text,
         courseId: widget.courseId, // Use the courseId passed to the screen
@@ -92,12 +97,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
                   // ✅ UPDATED: Form fields now match the UserModel
                   TextFormField(
-                    controller: _addressController,
-                    decoration: const InputDecoration(labelText: 'Address', border: OutlineInputBorder()),
-                    validator: (v) => v!.isEmpty ? 'Address cannot be empty' : null,
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
                     controller: _phoneController,
                     decoration: const InputDecoration(labelText: 'Phone Number', border: OutlineInputBorder()),
                     keyboardType: TextInputType.phone,
@@ -112,6 +111,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
+                    controller: _collageController,
+                    decoration: const InputDecoration(labelText: 'College', border: OutlineInputBorder()),
+                    validator: (v) => v!.isEmpty ? 'College cannot be empty' : null,
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _branchController,
+                    decoration: const InputDecoration(labelText: 'Branch', border: OutlineInputBorder()),
+                    validator: (v) => v!.isEmpty ? 'Branch cannot be empty' : null,
+                  ),
+                  const SizedBox(height: 16),
+
+                  TextFormField(
+                    controller: _paymentIdController,
+                    decoration: const InputDecoration(labelText: 'Payment Transaction ID', border: OutlineInputBorder()),
+                    validator: (v) => v!.isEmpty ? 'Payment ID cannot be empty' : null,
+                  ),
+                  const SizedBox(height: 24),
+                  TextFormField(
                     controller: _passwordController,
                     decoration: const InputDecoration(labelText: 'Password', border: OutlineInputBorder()),
                     obscureText: true,
@@ -119,11 +137,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 16),
                   TextFormField(
-                    controller: _paymentIdController,
-                    decoration: const InputDecoration(labelText: 'Payment Transaction ID', border: OutlineInputBorder()),
-                    validator: (v) => v!.isEmpty ? 'Payment ID cannot be empty' : null,
+                    controller: _confirmPasswordController,
+                    decoration: const InputDecoration(labelText: 'Confirm Password', border: OutlineInputBorder()),
+                    obscureText: true,
+                    validator: (v) => v != _passwordController.text ? 'Passwords do not match' : null,
                   ),
-                  const SizedBox(height: 24),
 
                   // ✅ UPDATED: A single, clean button driven by the BLoC state
                   SizedBox(

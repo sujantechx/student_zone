@@ -30,7 +30,8 @@ class AuthCubit extends Cubit<AuthState> {
     required String email,
     required String password,
     required String name,
-    required String address,
+    required String college,
+    required String branch,
     required String courseId,
     required String phone, // The UI sends a String
     required String paymentId,
@@ -48,10 +49,11 @@ class AuthCubit extends Cubit<AuthState> {
         email: email.trim(),
         password: password,
         name: name.trim(),
-        address: address.trim(),
         courseId: courseId.trim(),
         paymentId: paymentId.trim(),
-        phone: phone, // Pass the converted number
+        phone: phone,
+        college: college.trim(),
+        branch: branch, // Pass the converted number
       );
 
       developer.log('User registered, pending approval: ${userModel.uid}');
@@ -106,7 +108,9 @@ class AuthCubit extends Cubit<AuthState> {
     required String name,
     // required String email, // REMOVED
     required String college,
-    required String branch, required String address, required String courseName, required String phone,
+    required String branch,
+    required String courseName,
+    required String phone,
   }) async {
     if (state is! Authenticated) return;
 
@@ -119,13 +123,15 @@ class AuthCubit extends Cubit<AuthState> {
         uid: user.uid,
         name: name,
         // email: email, // REMOVED
-        address: '', courseName: '', phone: '', courseId: '', courseTitle: '',
+         courseName: '', phone: '', courseId: '', courseTitle: '', college: '', branch: '',
       );
 
       final updatedUserModel = user.copyWith(
         name: name,
         // email: email, // REMOVED
-        address: address,
+        college: college,
+        branch: branch,
+        phone: phone,
 
       );
 
