@@ -191,11 +191,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
           ),
-          IconButton(
+         /* IconButton(
             icon: const Icon(Icons.logout, color: Colors.white),
             onPressed: () => context.read<AuthCubit>().signOut(),
             tooltip: 'Sign out',
-          ),
+          ),*/
         ],
       ),
     );

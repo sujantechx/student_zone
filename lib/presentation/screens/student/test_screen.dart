@@ -81,11 +81,12 @@ class TestScreen extends StatelessWidget {
             height: 250,
             width: double.infinity,
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Colors.purple, Colors.blue],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
+              color: Colors.lightBlue,
+              // gradient: const LinearGradient(
+              //   colors: [Color(0xfffffff), Color()],
+              //   begin: Alignment.topLeft,
+              //   end: Alignment.bottomRight,
+              // ),
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
@@ -111,7 +112,7 @@ class TestScreen extends StatelessWidget {
                   : (question.text != null && question.text!.isNotEmpty
                   ? Text(
                 question.text!,
-                style: const TextStyle(fontSize: 18),
+                style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               )
                   : const Text('No question text')),
