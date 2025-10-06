@@ -1,3 +1,13 @@
+// ADD THIS NEW KOTLIN CODE AT THE TOP
+import java.util.Properties
+import java.io.FileInputStream
+
+val keystorePropertiesFile = rootProject.file("key.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+}
+
 plugins {
     id("com.android.application")
     // START: FlutterFire Configuration
@@ -34,12 +44,22 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
+    // ADD THIS INSIDE THE android { ... } BLOCK
+    signingConfigs {
+        create("release") {
+            if (keystorePropertiesFile.exists()) {
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+            }
+        }
+    }
 
     buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+        getByName("release") {
+            // ... other settings like minifyEnabled might be here
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }
