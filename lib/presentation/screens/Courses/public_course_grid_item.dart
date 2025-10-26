@@ -35,10 +35,10 @@ class PublicCourseGridItem extends StatelessWidget {
               textAlign: TextAlign.center,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            subtitle: Text(
+           /* subtitle: Text(
               'Price: ₹${course.price}', // Assuming your model has a price field
               textAlign: TextAlign.center,
-            ),
+            ),*/
           ),
           child: Container(
             decoration: BoxDecoration(

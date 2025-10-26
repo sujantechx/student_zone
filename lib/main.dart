@@ -29,6 +29,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 const String courseIdToAdd = "ojee_2025_2026_batch"; // <-- IMPORTANT: Change this value
 
+/*
 Future<void> addCourseIdToAllUsers() async {
   // 1. Get a reference to your Firestore database and the users collection
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -61,6 +62,7 @@ Future<void> addCourseIdToAllUsers() async {
     print("An error occurred: $e");
   }
 }
+*/
 /*
 Future<void> removeCourseFromUser(String userId) async {
   try {
@@ -106,7 +108,7 @@ void main() async {
     } catch (e) {
       developer.log('Error activating App Check: $e', error: e);
     }
-    addCourseIdToAllUsers(); // Call the function to add courseId to all users
+    // addCourseIdToAllUsers(); // Call the function to add courseId to all users
     // removeCourseFromUser("e4jxWFBp4j2aHELYj8qX"); // Call the function to remove courseId from a specific user
     runApp(const MyApp());
   } catch (e) {

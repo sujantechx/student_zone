@@ -122,13 +122,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     validator: (v) => v!.isEmpty ? 'Branch cannot be empty' : null,
                   ),
                   const SizedBox(height: 16),
-
+/*
                   TextFormField(
                     controller: _paymentIdController,
                     decoration: const InputDecoration(labelText: 'Payment Transaction ID', border: OutlineInputBorder()),
                     validator: (v) => v!.isEmpty ? 'Payment ID cannot be empty' : null,
                   ),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 24),*/
                   TextFormField(
                     controller: _passwordController,
                     decoration: const InputDecoration(labelText: 'Password', border: OutlineInputBorder()),

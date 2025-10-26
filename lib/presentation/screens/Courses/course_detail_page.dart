@@ -54,13 +54,13 @@ class CourseDetailPage extends StatelessWidget {
             ),
             const Spacer(), // Pushes the price and button to the bottom
 
-            // Course Price
+           /* // Course Price
             Center(
               child: Text(
                 'Price: ₹${course.price}', // Assuming your model has a 'price' field
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.green),
               ),
-            ),
+            ),*/
             const SizedBox(height: 16),
 
             // Buy Now Button
@@ -70,14 +70,14 @@ class CourseDetailPage extends StatelessWidget {
                 onPressed: () {
                   // When clicked, navigate to the QR payment page
                   // and pass the course object along.
-                  context.push(AppRoutes.qrPayment, extra: course);
+                  context.push(AppRoutes.register, extra: course.id);
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   backgroundColor: Colors.blue,
                   foregroundColor: Colors.white,
                 ),
-                child: const Text('Buy Now'),
+                child: const Text('Enroll now '),
               ),
             ),
           ],
